@@ -1,7 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/nextjs,soliditytruffle,solidity,visualstudiocode,visualstudio,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=nextjs,soliditytruffle,solidity,visualstudiocode,visualstudio,react
-.idea
+
 /cache
+keys.json
 
 ### NextJS ###
 # dependencies
@@ -42,7 +43,7 @@ next-env.d.ts
 ### react ###
 .DS_*
 *.log
-logss
+logs
 **/*.backup.*
 **/*.back.*
 
