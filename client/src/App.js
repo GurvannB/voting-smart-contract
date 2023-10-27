@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {ethers} from "ethers";
+import React, { useEffect, useState } from 'react';
+import { ethers } from "ethers";
 import {provider, votingContract} from "./contract-config";
 
 const metamaskProvider = new ethers.providers.Web3Provider(window.ethereum);
@@ -7,19 +7,19 @@ const signer = metamaskProvider.getSigner();
 
 function App() {
 	const [greet, setGreet] = useState('');
-	const [accounts, setAccounts] = useState('');
+	const [accounts, setAccounts] = useState([]);
 
 	const contract = new ethers.Contract(votingContract.contractAddress, votingContract.ABI, provider);
 
-	const getGreeting = async () => {
-		const greeting = await contract.hello_world();
-		setGreet(greeting);
-	}
+	useEffect(() => {
+		console.log("Triggered")
+		const getAccounts = async () => {
+			const accounts = await metamaskProvider.listAccounts();
+			setAccounts(accounts);
+		}
 
-	const getAccounts = async () => {
-		const accounts = await metamaskProvider.listAccounts();
-		setAccounts(accounts);
-	}
+		getAccounts().catch(console.error)
+	}, [contract, metamaskProvider]);
 
 	return (
 		<div className="container">
@@ -27,8 +27,7 @@ function App() {
 
 				<div className="col">
 					<h3>Hello {greet}</h3>
-					<h3>{accounts}</h3>
-					<button onClick={getGreeting}>Get greeting</button>
+					<h3>Accounts {accounts}</h3>
 				</div>
 			</div>
 		</div>
